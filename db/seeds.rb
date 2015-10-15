@@ -15,7 +15,12 @@ include RandomData
    	post: posts.sample,
     body: RandomData.random_paragraph
    )
- end
+ end 
+
+
+ Post.find_or_create_by(title: "I'm Unique!", body: "Also Unique!!! a couple more characters")
+
+ Comment.find_or_create_by(post_id: 2, body: "Comments don't have titles")
 
  puts "Seed finished"
  puts "#{Post.count} posts created"
