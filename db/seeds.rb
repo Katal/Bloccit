@@ -1,5 +1,14 @@
 include RandomData
  
+ # Create Topics
+ 15.times do
+   Topic.create!(
+     name:         RandomData.random_sentence,
+     description:  RandomData.random_paragraph
+   )
+ end
+ topics = Topic.all
+
  # Create Posts
  50.times do
  	Post.create!(
@@ -23,5 +32,6 @@ include RandomData
  Comment.find_or_create_by(post_id: 2, body: "Comments don't have titles")
 
  puts "Seed finished"
+ puts "#{Topic.count} topics created"
  puts "#{Post.count} posts created"
  puts "#{Comment.count} comments created"
