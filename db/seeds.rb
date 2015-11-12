@@ -1,4 +1,14 @@
 include RandomData
+
+# Create Users
+ 5.times do
+   user = User.create!(
+   name:     RandomData.random_name,
+   email:    RandomData.random_email,
+   password: RandomData.random_sentence
+   )
+ end
+ users = User.all
  
  # Create Topics
  15.times do
@@ -12,8 +22,10 @@ include RandomData
  # Create Posts
  50.times do
  	Post.create!(
- 		title:  RandomData.random_sentence,
-     	body:   RandomData.random_paragraph
+ 		user:   users.sample,
+    topic:  topics.sample,
+    title:  RandomData.random_sentence,
+    body:   RandomData.random_paragraph
    )
  end
  posts = Post.all
@@ -31,7 +43,14 @@ include RandomData
 
  Comment.find_or_create_by(post_id: 2, body: "Comments don't have titles")
 
+ user = User.first
+ user.update_attributes!(
+   email: 'leartis08@gmail.com', # replace this with your personal email
+   password: 'helloworld'
+ )
+
  puts "Seed finished"
+ puts "#{User.count} users created"
  puts "#{Topic.count} topics created"
  puts "#{Post.count} posts created"
  puts "#{Comment.count} comments created"
