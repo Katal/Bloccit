@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   resources :advertisements
 
+  resources :users, only: [:new, :create]
+
   get 'about' => 'welcome#about'
 
   root to: 'welcome#index'
