@@ -1,0 +1,9 @@
+<%= @sponsored_post.title %> 
+     submitted <%= time_ago_in_words(@sponsored_post.created_at) %> ago 
+ 
+ 
+<%= @sponsored_post.body %>
+
+     <%= link_to "Edit Sponsored Post", edit_topic_sponsored_post_path(@sponsored_post.topic, @sponsored_post), class: 'btn btn-success' %>
+
+

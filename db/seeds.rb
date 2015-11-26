@@ -38,6 +38,16 @@ include RandomData
    )
  end 
 
+ #Create Sponsored Posts
+ 20.times do
+  SponsoredPost.create!(
+    topic: topics.sample,
+    title: RandomData.random_sentence,
+    body: RandomData.random_paragraph, 
+    price: 3500
+    )
+end
+
 
  Post.find_or_create_by(title: "I'm Unique!", body: "Also Unique!!! a couple more characters")
 
@@ -54,3 +64,4 @@ include RandomData
  puts "#{Topic.count} topics created"
  puts "#{Post.count} posts created"
  puts "#{Comment.count} comments created"
+ puts "#{SponsoredPost.count} sponsored posts created"
