@@ -1,0 +1,14 @@
+
+   <%= @question.title %> <br>
+      
+     <p><%= @question.body %></p>
+   
+
+
+<%= form_for @question do |f| %>
+
+	Resolved? <%= f.check_box :resolved %>
+
+	<%= f.submit %>
+
+<% end %>
