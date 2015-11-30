@@ -1,2 +1,16 @@
-<h1>Questions#new</h1>
-<p>Find me in app/views/questions/new.html.erb</p>
+#Needs to have a form
+
+
+#Needs to save and confirm it was saved
+#It would need to display any errors if issues saving
+
+<%= 100 + 50 %>
+<%= form_for @question do |q| %>
+	Title: <%= q.text_field :title %>
+	Body: <%= q.text_field :body %>
+
+	Resolve: <%= q.check_box :resolved %>
+	<%= q.submit %>
+<% end %>
+
+

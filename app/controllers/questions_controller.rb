@@ -10,9 +10,12 @@ class QuestionsController < ApplicationController
   end
 
   def new
+    @question = Question.new
   end
 
   def create
+    @question = Question.create(params.require(:question).permit!)
+    redirect_to @question
   end
 
   def update
