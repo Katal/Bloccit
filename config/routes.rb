@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :questions
 
   get 'about' => 'welcome#about'
+  post 'users/confirm' => "users#confirm"
 
   root to: 'welcome#index'
 

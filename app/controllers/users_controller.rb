@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
-	 def new
+	  def new
      	@user = User.new
-     end
+    end
 
-     def create
+    def create
 
      @user = User.new
      @user.name = params[:user][:name]
@@ -19,5 +19,9 @@ class UsersController < ApplicationController
        flash[:error] = "There was an error creating your account. Please try again."
        render :new
      end
-   end
+    end
+
+    def confirm
+    end
+    
 end
