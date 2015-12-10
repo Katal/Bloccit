@@ -6,19 +6,21 @@ class User < ActiveRecord::Base
   #recombine with space in between, save to name attribute
   # how am I supposed to validate / test w TDD and where?
   # http://stackoverflow.com/questions/10210493/rails-ensure-capitalization-in-model
-  before_save { 
+  # before_save { 
+  #   array = name.split
+  #   array.each do |n|
+  #     n.capitalize!
+  #   end
+  #   self.name = array.join(" ")
+  # }
 
-    array = name.split
-
-    array.each do |n|
-      n.capitalize!
+    def name=(s)
+      array = s.split
+      array.each do |n|
+        n.capitalize!
+      end
+      write_attribute(:name, array.join(" "))
     end
-
-
-
-    self.name = array.join(" ")
-
-  }
 
    EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
