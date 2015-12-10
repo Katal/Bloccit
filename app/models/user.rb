@@ -14,8 +14,6 @@ class User < ActiveRecord::Base
       n.capitalize!
     end
 
-
-
     self.name = array.join(" ")
 
   }

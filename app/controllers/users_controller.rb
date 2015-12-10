@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
 	 def new
      	@user = User.new
-     end
+   end
 
-     def create
+  def create
 
      @user = User.new
      @user.name = params[:user][:name]
@@ -20,4 +20,5 @@ class UsersController < ApplicationController
        render :new
      end
    end
+   
 end
