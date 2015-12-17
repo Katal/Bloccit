@@ -1,7 +1,9 @@
 class PostsController < ApplicationController
 
   before_action :require_sign_in, except: :show
-  before_action :authorize_user, except: [:show, :new, :create]
+  before_action :authorize_user, except: [:show, :new, :create, :edit, :update]
+  before_action :allowed_to_update, except: [:index, :show, :new, :create, :delete]
+
 
   def show
     @post = Post.find(params[:id])
@@ -68,5 +70,13 @@ class PostsController < ApplicationController
        redirect_to [post.topic, post]
      end
    end
+
+#edited here
+   def allowed_to_update
+    if current_user.admin? or current_user.moderator?
+      flash[:alert] = "You must be an admin or moderator to do that."
+      redirect_to topics_path
+    end
+  end
 
 end
