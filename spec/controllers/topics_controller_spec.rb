@@ -126,6 +126,10 @@ RSpec.describe TopicsController, type: :controller do
     describe "GET edit" do
       it "returns http redirect" do
         get :edit, {id: my_topic.id}
+        #this line above is wrong, should redirect to topics_path or new_session_path or ?
+        #members cant edit or create topics
+        #error: Expected response to be a <redirect>, but was <200>
+        #does it fail because of code or spec file?
         expect(response).to redirect_to(topics_path)
       end
     end
@@ -136,9 +140,31 @@ RSpec.describe TopicsController, type: :controller do
         new_description = RandomData.random_paragraph
 
         put :update, id: my_topic.id, topic: {name: new_name, description: new_description}
+        #this line above is wrong, should redirect to topics_path
+        #members cant edit or create topics...
+        #error: Expected response to be a redirect to <http://test.host/topics> but was a redirect to <http://test.host/topics/1>.
+        #does it fail because of code or spec file?
         expect(response).to redirect_to(topics_path)
       end
     end
+
+    #command for guest user
+    # describe "GET edit" do
+    #   it "returns http redirect" do
+    #     get :edit, {id: my_topic.id}
+    #     expect(response).to redirect_to(new_session_path)
+    #   end
+    # end
+
+    # describe "PUT update" do
+    #   it "returns http redirect" do
+    #     new_name = RandomData.random_sentence
+    #     new_description = RandomData.random_paragraph
+
+    #     put :update, id: my_topic.id, topic: {name: new_name, description: new_description }
+    #     expect(response).to redirect_to(new_session_path)
+    #   end
+    # end
 
     describe "DELETE destroy" do
       it "returns http redirect" do
@@ -352,7 +378,7 @@ RSpec.describe TopicsController, type: :controller do
       it "redirects to the updated topic" do
         new_name = RandomData.random_sentence
         new_description = RandomData.random_paragraph
-
+        my_topic = Topic.create(name: "I think it needs to be a certain number of characters", description: "I think it needs to be a certain number of charactersI think it needs to be a certain number of charactersI think it needs to be a certain number of characters")
         put :update, id: my_topic.id, topic: {name: new_name, description: new_description}
         expect(response).to redirect_to my_topic
       end

@@ -1,7 +1,8 @@
 class TopicsController < ApplicationController
 
   before_action :require_sign_in, except: [:index, :show]
-  before_action :authorize_user, except: [:index, :show, :edit, :update]
+  before_action :authorize_user, except: [:index, :show]
+  #this may be part of the tc member spec problem; added edit and update to before_action - yes
   before_action :allowed_to_update, except: [:index, :show, :new, :create, :delete]
 
    def index
@@ -35,7 +36,7 @@ class TopicsController < ApplicationController
      @topic = Topic.find(params[:id])
  
      @topic.assign_attributes(topic_params)
- 
+
      if @topic.save
         flash[:notice] = "Topic was updated."
        redirect_to @topic
