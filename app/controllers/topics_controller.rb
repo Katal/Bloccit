@@ -3,7 +3,7 @@ class TopicsController < ApplicationController
   before_action :require_sign_in, except: [:index, :show]
   before_action :authorize_user, except: [:index, :show]
   #this may be part of the tc member spec problem; added edit and update to before_action - yes
-  before_action :allowed_to_update, except: [:index, :show, :new, :create, :delete]
+  # before_action :allowed_to_update, except: [:index, :show, :new, :create, :delete]
 
    def index
      @topics = Topic.all
@@ -63,22 +63,38 @@ class TopicsController < ApplicationController
    def topic_params
      params.require(:topic).permit(:name, :description, :public)
    end
- 
- #edited here #not working
-  def authorize_user
-     unless current_user.admin? 
-       flash[:alert] = "You must be an admin to do that."
+
+
+    def authorize_user 
+     unless current_user.admin? || current_user.moderator?
+       flash[:alert] = "You must be a chicken to do that."
        redirect_to topics_path
      end
    end
 
-#trying 
-  def allowed_to_update
-    if current_user.admin? or current_user.moderator?
-      flash[:alert] = "You must be an admin or moderator to do that."
-      redirect_to topics_path
-    end
-  end
+ end
 
 
-end
+ 
+ #things tried but dont need
+    # def authorize_user
+    #  if current_user.moderator? || current_user.admin?
+    #   authorize = true
+    #   flash[:alert] = "Please edit below."
+    # else 
+    #    authorize = false
+    #    flash[:alert] = "You must be an admin to do that."
+    #    redirect_to topics_path
+    #  end
+    # end
+
+# #trying 
+#   def allowed_to_update
+#   #   if ( current_user.admin? || current_user.moderator? )
+#   #     flash[:alert] = "You must be an admin or moderator to do that."
+#   #     redirect_to topics_path
+#   end
+#   end
+
+
+

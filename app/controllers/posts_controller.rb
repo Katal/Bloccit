@@ -1,9 +1,14 @@
 class PostsController < ApplicationController
 
   before_action :require_sign_in, except: :show
-  before_action :authorize_user, except: [:show, :new, :create, :edit, :update]
-  before_action :allowed_to_update, except: [:index, :show, :new, :create, :delete]
-
+  # before_action :allowed_to_update
+  before_action :authorize_user, except: [:show, :new, :create]
+  # moderators should not be able to create and see new post button - last thing to fix
+  before_action :not_allowed_to_create, only: [:create, :new, :destroy]
+ 
+  # def index
+  #    @topics = Topic.all
+  #  end
 
   def show
     @post = Post.find(params[:id])
@@ -63,20 +68,35 @@ class PostsController < ApplicationController
      params.require(:post).permit(:title, :body)
    end
 
+   def topic_params
+     params.require(:topic).permit(:name, :description, :public)
+   end
+
    def authorize_user
      post = Post.find(params[:id])
-     unless current_user == post.user || current_user.admin?
+     unless current_user ==  post.user || current_user.admin? || current_user.moderator?
+      # if current_user (does not equal) post.user, admin or moderator
+      #was fine when I removed the paranethesis?!?!! maybe logic can't be separated / chunked like that
        flash[:alert] = "You must be an admin to do that."
        redirect_to [post.topic, post]
      end
    end
 
-#edited here
-   def allowed_to_update
-    if current_user.admin? or current_user.moderator?
-      flash[:alert] = "You must be an admin or moderator to do that."
-      redirect_to topics_path
+   def not_allowed_to_create
+    # @topic = Topic.find(params[:id])
+      if current_user && current_user.moderator?
+      flash[:alert] = "You cannot create new posts or topics."
+      # authorized = false
+      # render :index
     end
-  end
+   end
+
+# edited here
+  #  def allowed_to_update
+  #   unless current_user.admin? || current_user.moderator?
+  #     flash[:alert] = "You must be an admin or moderator to do that."
+  #     redirect_to [post.topic, post]
+  #   end
+  # end
 
 end

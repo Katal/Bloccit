@@ -69,11 +69,12 @@ end
  )
 
  #Assignment 40
- #Create a moderator
+ #Create a moderator #forgot to add role and comma
  member = User.create!(
    name:     'Moderator User',
    email:    'moderator@example.com',
-   password: 'helloworld'
+   password: 'helloworld',
+   role: 'moderator'
  )
 
 

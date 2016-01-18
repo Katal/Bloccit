@@ -80,6 +80,7 @@ RSpec.describe User, type: :model do
        before do
          user.moderator!
        end
+       #why is this working but db isnt?
  
        it "should return false for #member?" do
          expect(user.member?).to be_falsey
