@@ -13,6 +13,6 @@
      <%= render partial: 'form', locals: { topic: @post.topic, post: @post } %>
    </div>
    <div class="form-group">
-          <%= render partial: "ratings/form", locals: { f: f, ratings: @topic.ratings } %>
+     <%= render partial: "ratings/form", locals: { f: f, rating: @post.rating } %>
    </div>
  </div>
