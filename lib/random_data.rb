@@ -23,10 +23,10 @@ module RandomData
      strings = []
      rand(3..8).times do
        strings << random_word
-    end
+     end
 
-    sentence = strings.join(" ")
-    sentence.capitalize << "."
+      sentence = strings.join(" ")
+      sentence.capitalize << "."
   end
 
   def random_word
