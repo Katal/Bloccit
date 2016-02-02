@@ -24,8 +24,11 @@ class User < ActiveRecord::Base
    enum role: [:member, :admin]
 
    def favorite_for(post)
+    #input a post
      favorites.where(post_id: post.id).first
+     #output a 'favorite' record that connects this user to the given post
    end
+   
 
 
 end

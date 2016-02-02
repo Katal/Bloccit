@@ -39,12 +39,10 @@ class Post < ActiveRecord::Base
 
 
    def send_new_post_email
-    #need help here and a half - how do I create a favorite?
-      post = Post.last
-      # post.favorite
-      favorites.where(post_id: post.id).first
-      # favorite_for(User).where(post.user_id = Post.last.user_id)
-      FavoriteMailer.new_post(post).deliver_now
+
+      Favorite.create(user: self.user, post: self)
+
+      FavoriteMailer.new_post(self).deliver_now
    end 
  
    
