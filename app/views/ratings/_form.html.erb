@@ -1,8 +1,10 @@
 <div class="form-group">
 	<%= f.label :rating %>
 	 <% if rating %>
-	     <%= f.select :rating, options_for_select(Rating.severities, Rating.severities[rating.severity]) %>
+	     <%#= f.select :rating_id, options_for_select(Rating.severities, Rating.severities[rating.severity]) %>
+	     <%= f.collection_select :rating_id, Rating.all, :id, :severity %>
 	 <% else %>
-	     <%= f.select :rating, options_for_select(Rating.severities) %>
+	     <%#= f.select :rating_id, options_for_select(Rating.severities) %>
+	     <%= f.collection_select :rating_id, Rating.all, :id, :severity %>
 	 <% end %>
 </div>
