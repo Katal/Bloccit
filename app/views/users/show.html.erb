@@ -29,6 +29,8 @@
   <% @user.favorites.each do |favorite| %>
     <%= image_tag favorite.post.user.avatar_url(24) %>
     <%= favorite.post.title %>
+    <br/>
     <%= pluralize(favorite.post.points, 'point') %>
+    <%= pluralize(favorite.post.comments.count, 'comment') %>
     <br/>
   <% end %>
